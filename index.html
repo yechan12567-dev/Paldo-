@@ -50,7 +50,30 @@
   }
 
   .tabs-wrap{border-bottom:1px solid var(--line);background:#fff}
-  .tabs{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:20px 0}
+ .tabs{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  padding:20px 0;
+}
+  @media (max-width:640px){
+  .tabs{
+    justify-content:flex-start;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    padding:14px 0;
+    scrollbar-width:none;
+  }
+
+  .tabs::-webkit-scrollbar{
+    display:none;
+  }
+
+  .tab{
+    flex:0 0 auto;
+  }
+}
   .tab{
     border:1px solid #d1d5db;
     background:#fff;
@@ -89,7 +112,12 @@
     justify-content:center;
     overflow:hidden;
   }
-  .image-frame img{max-height:330px;width:auto;object-fit:contain}
+  .image-frame img{
+    max-height:330px;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    object-fit:contain;}
   .title{margin:0;font-size:52px;line-height:.95;font-weight:900;letter-spacing:-.05em}
   .subtitle{margin:14px 0 0;color:var(--muted);font-size:19px}
   .desc-title{
@@ -202,20 +230,145 @@
   }
 
   @media (max-width:900px){
-    .top-grid{grid-template-columns:1fr}
-    .nutrition-grid{grid-template-columns:repeat(2,1fr)}
-    .title{font-size:40px}
-    .hero h1{font-size:38px}
-    .logo-wrap img{height:110px}
+    .top-grid
+    {grid-template-columns:1fr;
+     gap:28px;
+    }
+    .nutrition-grid{
+      grid-template-columns:repeat(2,1fr);
+    }
+    .title{font-size:40px;
+    }
+    .hero h1{font-size:38px;
+            }
+    .logo-wrap img{height:110px;
+            }
   }
   @media (max-width:640px){
-    .nutrition-grid{grid-template-columns:1fr}
-    .title{font-size:34px}
-    .hero h1{font-size:32px}
-    .hero p{font-size:15px}
-    .image-frame{min-height:280px}
-    .image-frame img{max-height:250px}
+  body{
+    -webkit-text-size-adjust:100%;
   }
+
+  .container{
+    padding:0 16px;
+  }
+
+  .hero-inner{
+    padding:28px 0 24px;
+  }
+
+  .hero h1{
+    font-size:30px;
+    line-height:1.1;
+  }
+
+  .hero p{
+    font-size:14px;
+    line-height:1.6;
+  }
+
+  .logo-wrap{
+    padding:20px 0;
+  }
+
+  .logo-wrap img{
+    height:72px;
+  }
+
+  .tabs{
+    gap:8px;
+    padding:14px 0;
+  }
+
+  .tab{
+    padding:10px 14px;
+    font-size:13px;
+  }
+
+  .main{
+    padding:24px 0 44px;
+  }
+
+  .top-grid{
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+
+  .image-box{
+    padding:16px;
+    border-radius:20px;
+  }
+
+  .image-frame{
+    min-height:240px;
+    border-radius:16px;
+  }
+
+  .image-frame img{
+    max-height:220px;
+    max-width:100%;
+    height:auto;
+  }
+
+  .title{
+    font-size:30px;
+    line-height:1.05;
+  }
+
+  .subtitle{
+    font-size:16px;
+    margin-top:10px;
+  }
+
+  .desc{
+    font-size:15px;
+    line-height:1.7;
+  }
+
+  .section{
+    margin-top:30px;
+  }
+
+  .section h2{
+    font-size:24px;
+  }
+
+  .nutrition-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .nutrition-box{
+    padding:14px;
+  }
+
+  .ingredient{
+    font-size:13px;
+    padding:7px 10px;
+  }
+
+  .chip{
+    font-size:13px;
+    padding:7px 10px;
+  }
+
+  .cook-box{
+    padding:16px;
+    border-radius:18px;
+  }
+
+  .steps li{
+    gap:10px;
+    line-height:1.6;
+    font-size:14px;
+  }
+
+  .num{
+    width:24px;
+    height:24px;
+    font-size:12px;
+  }
+}
 </style>
 </head>
 <body>
