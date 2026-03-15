@@ -23,6 +23,7 @@
       color:var(--text);
       background:#fff;
       -webkit-text-size-adjust:100%;
+      overflow-x:hidden;
     }
 
     img{
@@ -159,6 +160,12 @@
       object-fit:contain;
     }
 
+    .text-area{
+      padding-left:4px;
+      padding-right:4px;
+      min-width:0;
+    }
+
     .title{
       margin:0;
       font-size:52px;
@@ -166,6 +173,7 @@
       font-weight:900;
       letter-spacing:-.05em;
       word-break:keep-all;
+      overflow-wrap:break-word;
     }
 
     .subtitle{
@@ -173,6 +181,7 @@
       color:var(--muted);
       font-size:19px;
       line-height:1.6;
+      word-break:keep-all;
     }
 
     .desc-title{
@@ -205,6 +214,7 @@
       line-height:1.1;
       font-weight:900;
       letter-spacing:-.03em;
+      word-break:keep-all;
     }
 
     .ingredient-list{
@@ -237,6 +247,7 @@
       border-radius:18px;
       padding:20px;
       background:#fff;
+      min-width:0;
     }
 
     .nutrition-box .label{
@@ -252,6 +263,7 @@
       font-size:18px;
       font-weight:900;
       line-height:1.4;
+      word-break:break-word;
     }
 
     .allergen-box{
@@ -356,7 +368,7 @@
 
     @media (max-width:640px){
       .container{
-        padding:0 28px;
+        padding:0 20px;
       }
 
       .logo-wrap{
@@ -426,19 +438,27 @@
         height:auto;
       }
 
+      .text-area{
+        padding-left:12px;
+        padding-right:12px;
+      }
+
       .title{
-        font-size:30px;
-        line-height:1.08;
+        font-size:28px;
+        line-height:1.12;
+        margin:0;
       }
 
       .subtitle{
-        font-size:16px;
-        line-height:1.6;
+        font-size:15px;
+        line-height:1.7;
         margin-top:10px;
       }
 
       .desc-title{
         margin-top:22px;
+        font-size:10px;
+        letter-spacing:.18em;
       }
 
       .desc{
@@ -453,12 +473,14 @@
       .section h2{
         font-size:24px;
         line-height:1.15;
+        padding-left:12px;
+        padding-right:12px;
       }
 
       .ingredient-list{
         margin-top:16px;
         gap:10px;
-        padding:4px 0 0;
+        padding:4px 12px 0;
       }
 
       .ingredient{
@@ -469,6 +491,7 @@
       .nutrition-grid{
         grid-template-columns:1fr;
         gap:12px;
+        padding:0 12px;
       }
 
       .nutrition-box{
@@ -480,6 +503,8 @@
       }
 
       .allergen-box{
+        margin-left:12px;
+        margin-right:12px;
         padding:16px;
         border-radius:18px;
       }
@@ -490,6 +515,8 @@
       }
 
       .cook-box{
+        margin-left:12px;
+        margin-right:12px;
         padding:16px;
         border-radius:18px;
       }
@@ -538,10 +565,9 @@
         <div class="image-frame" id="image-frame"></div>
       </div>
 
-      <div>
+      <div class="text-area">
         <h1 class="title" id="name"></h1>
         <p class="subtitle" id="subtitle"></p>
-
         <div class="desc-title">Product Description</div>
         <div class="desc" id="description"></div>
       </div>
@@ -751,7 +777,7 @@
       img.onerror = () => {
         imageFrame.innerHTML = `
           <div style="text-align:center;color:#6b7280;padding:12px;">
-            <div style="display:inline-block;padding:8px 14px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-size:12px;font-weight:800;letter-spacing:.18em">
+            <div style="display:inline-block;padding:8px 14px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-size:12px;font-weight:800;letter-spacing:.18em;">
               PRODUCT IMAGE
             </div>
             <div style="margin-top:18px;font-size:28px;font-weight:900;color:#111827;line-height:1.3;">
