@@ -1,1374 +1,624 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Paldo Global Product Guide</title>
-  <style>
-    :root{
-      --red:#cf2027;
-      --red-dark:#b61b22;
-      --text:#111827;
-      --muted:#6b7280;
-      --line:#e5e7eb;
-      --soft:#fafafa;
-      --chip:#fef2f2;
-      --navy:#111827;
+<script>
+  const uiText = {
+    en: {
+      langName: "English",
+      eyebrow: "Paldo Global Product Guide",
+      heroTitle: "Experience<span>The Authentic Taste of Korea with Paldo</span>",
+      heroDesc: "A clear and user-friendly product page for international customers, featuring product descriptions, ingredients, nutrition facts, allergen information, and cooking instructions.",
+      descTitle: "Product Description",
+      ingredientsTitle: "Ingredients",
+      nutritionTitle: "Nutrition Facts",
+      allergyTitle: "Allergen Information",
+      containsTitle: "Contains",
+      cookingTitle: "Cooking Instructions",
+      productImage: "PRODUCT IMAGE"
+    },
+    zh: {
+      langName: "中文",
+      eyebrow: "八道全球产品指南",
+      heroTitle: "体验<span>八道带来的地道韩国风味</span>",
+      heroDesc: "专为国际消费者打造的清晰产品页面，提供产品介绍、配料、营养成分、过敏原信息和烹饪方法。",
+      descTitle: "产品介绍",
+      ingredientsTitle: "配料",
+      nutritionTitle: "营养成分",
+      allergyTitle: "过敏原信息",
+      containsTitle: "含有",
+      cookingTitle: "烹饪说明",
+      productImage: "产品图片"
+    },
+    ja: {
+      langName: "日本語",
+      eyebrow: "パルド グローバル商品ガイド",
+      heroTitle: "Paldoで味わう<span>本場韓国の美味しさ</span>",
+      heroDesc: "海外のお客様向けに、商品説明、原材料、栄養成分、アレルギー情報、調理方法をわかりやすくまとめた商品ページです。",
+      descTitle: "商品説明",
+      ingredientsTitle: "原材料",
+      nutritionTitle: "栄養成分",
+      allergyTitle: "アレルギー情報",
+      containsTitle: "含まれるもの",
+      cookingTitle: "調理方法",
+      productImage: "商品画像"
+    },
+    vi: {
+      langName: "Tiếng Việt",
+      eyebrow: "Hướng Dẫn Sản Phẩm Toàn Cầu Của Paldo",
+      heroTitle: "Khám phá<span>Hương vị Hàn Quốc đích thực cùng Paldo</span>",
+      heroDesc: "Trang sản phẩm rõ ràng và dễ theo dõi dành cho khách hàng quốc tế, bao gồm mô tả sản phẩm, thành phần, thông tin dinh dưỡng, thông tin dị ứng và hướng dẫn chế biến.",
+      descTitle: "Mô tả sản phẩm",
+      ingredientsTitle: "Thành phần",
+      nutritionTitle: "Thông tin dinh dưỡng",
+      allergyTitle: "Thông tin dị ứng",
+      containsTitle: "Có chứa",
+      cookingTitle: "Hướng dẫn chế biến",
+      productImage: "HÌNH ẢNH SẢN PHẨM"
     }
+  };
 
-    *{box-sizing:border-box}
-
-    body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      color:var(--text);
-      background:#fff;
-      -webkit-text-size-adjust:100%;
-      overflow-x:hidden;
+  const nutritionLabels = {
+    en: {
+      serving: "Serving Size",
+      calories: "Calories",
+      carb: "Carbohydrates",
+      protein: "Protein",
+      fat: "Fat",
+      sodium: "Sodium"
+    },
+    zh: {
+      serving: "每份含量",
+      calories: "热量",
+      carb: "碳水化合物",
+      protein: "蛋白质",
+      fat: "脂肪",
+      sodium: "钠"
+    },
+    ja: {
+      serving: "内容量",
+      calories: "カロリー",
+      carb: "炭水化物",
+      protein: "たんぱく質",
+      fat: "脂質",
+      sodium: "ナトリウム"
+    },
+    vi: {
+      serving: "Khẩu phần",
+      calories: "Năng lượng",
+      carb: "Carbohydrate",
+      protein: "Chất đạm",
+      fat: "Chất béo",
+      sodium: "Natri"
     }
-
-    img{
-      display:block;
-      max-width:100%;
-    }
-
-    .container{
-      width:100%;
-      max-width:1040px;
-      margin:0 auto;
-      padding:0 24px;
-    }
-
-    header{
-      border-bottom:1px solid var(--line);
-      background:#fff;
-    }
-
-    .logo-wrap{
-      padding:30px 0;
-      text-align:center;
-    }
-
-    .logo-wrap img{
-      height:140px;
-      width:auto;
-      margin:0 auto;
-    }
-
-    .hero{
-      background:linear-gradient(135deg,#fff7f7 0%, #fff 58%, #fff4f1 100%);
-      border-bottom:1px solid var(--line);
-    }
-
-    .hero-inner{
-      padding:40px 0 34px;
-      text-align:center;
-    }
-
-    .eyebrow{
-      color:var(--red);
-      font-size:11px;
-      font-weight:800;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-    }
-
-    .hero h1{
-      margin:14px 0 0;
-      font-size:48px;
-      line-height:1.02;
-      font-weight:900;
-      letter-spacing:-.04em;
-    }
-
-    .hero h1 span{
-      display:block;
-      color:#333;
-    }
-
-    .hero p{
-      max-width:760px;
-      margin:16px auto 0;
-      color:var(--muted);
-      font-size:16px;
-      line-height:1.8;
-    }
-
-    .lang-wrap,
-    .tabs-wrap{
-      border-bottom:1px solid var(--line);
-      background:#fff;
-    }
-
-    .lang-tabs,
-    .tabs{
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-      padding:16px 0;
-    }
-
-    .lang-tab,
-    .tab{
-      border:1px solid #d1d5db;
-      background:#fff;
-      border-radius:999px;
-      padding:11px 18px;
-      font-size:14px;
-      font-weight:800;
-      color:#374151;
-      cursor:pointer;
-      white-space:nowrap;
-    }
-
-    .lang-tab.active,
-    .tab.active{
-      background:#111827;
-      border-color:#111827;
-      color:#fff;
-    }
-
-    .main{
-      padding:40px 0 64px;
-    }
-
-    .top-grid{
-      display:grid;
-      grid-template-columns:420px minmax(0,1fr);
-      gap:42px;
-      align-items:center;
-    }
-
-    .image-box{
-      border:1px solid var(--line);
-      border-radius:28px;
-      background:linear-gradient(180deg,#fafafa 0%, #f3f4f6 100%);
-      padding:26px;
-    }
-
-    .image-frame{
-      min-height:360px;
-      border-radius:22px;
-      background:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-    }
-
-    .image-frame img{
-      max-height:330px;
-      max-width:100%;
-      width:auto;
-      height:auto;
-      object-fit:contain;
-    }
-
-    .text-area{
-      padding-left:4px;
-      padding-right:4px;
-      min-width:0;
-    }
-
-    .title{
-      margin:0;
-      font-size:52px;
-      line-height:1.02;
-      font-weight:900;
-      letter-spacing:-.05em;
-      word-break:keep-all;
-      overflow-wrap:break-word;
-    }
-
-    .subtitle{
-      margin:14px 0 0;
-      color:var(--muted);
-      font-size:19px;
-      line-height:1.6;
-      word-break:keep-all;
-    }
-
-    .desc-title{
-      margin:26px 0 0;
-      font-size:11px;
-      font-weight:800;
-      letter-spacing:.2em;
-      text-transform:uppercase;
-      color:#9ca3af;
-    }
-
-    .desc{
-      margin-top:14px;
-      font-size:17px;
-      line-height:1.85;
-      color:#374151;
-    }
-
-    .desc p{
-      margin:0 0 8px;
-    }
-
-    .section{
-      margin-top:46px;
-    }
-
-    .section h2{
-      margin:0;
-      font-size:30px;
-      line-height:1.1;
-      font-weight:900;
-      letter-spacing:-.03em;
-      word-break:keep-all;
-    }
-
-    .ingredient-list{
-      margin-top:18px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      padding:6px 0 2px;
-    }
-
-    .ingredient{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:999px;
-      padding:10px 14px;
-      font-size:14px;
-      font-weight:700;
-      color:#374151;
-    }
-
-    .nutrition-grid{
-      margin-top:18px;
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
-    }
-
-    .nutrition-box{
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:20px;
-      background:#fff;
-      min-width:0;
-    }
-
-    .nutrition-box .label{
-      font-size:11px;
-      font-weight:800;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:#9ca3af;
-    }
-
-    .nutrition-box .value{
-      margin-top:8px;
-      font-size:18px;
-      font-weight:900;
-      line-height:1.4;
-      word-break:break-word;
-    }
-
-    .allergen-box{
-      margin-top:18px;
-      border:1px solid #fecaca;
-      background:var(--chip);
-      border-radius:22px;
-      padding:18px;
-    }
-
-    .allergen-title{
-      color:#b91c1c;
-      font-size:14px;
-      font-weight:800;
-    }
-
-    .chips{
-      margin-top:12px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
-    .chip{
-      border:1px solid #fecaca;
-      background:#fff;
-      color:#b91c1c;
-      border-radius:999px;
-      padding:8px 12px;
-      font-size:14px;
-      font-weight:800;
-    }
-
-    .cook-box{
-      margin-top:18px;
-      border:1px solid var(--line);
-      border-radius:22px;
-      padding:20px;
-      background:#fff;
-    }
-
-    .cook-subtitle{
-      font-size:16px;
-      font-weight:900;
-      line-height:1.5;
-    }
-
-    .steps{
-      list-style:none;
-      margin:14px 0 0;
-      padding:0;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-
-    .steps li{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      color:#374151;
-      line-height:1.8;
-    }
-
-    .num{
-      width:28px;
-      height:28px;
-      border-radius:999px;
-      background:#111827;
-      color:#fff;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-size:13px;
-      font-weight:900;
-      flex:0 0 auto;
-      margin-top:2px;
-    }
-
-    @media (max-width:900px){
-      .top-grid{
-        grid-template-columns:1fr;
-        gap:28px;
-      }
-
-      .nutrition-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .title{
-        font-size:40px;
-      }
-
-      .hero h1{
-        font-size:38px;
-      }
-
-      .logo-wrap img{
-        height:110px;
-      }
-    }
-
-    @media (max-width:640px){
-      .container{
-        padding:0 20px;
-      }
-
-      .logo-wrap{
-        padding:20px 0;
-      }
-
-      .logo-wrap img{
-        height:72px;
-      }
-
-      .hero-inner{
-        padding:28px 0 24px;
-      }
-
-      .hero h1{
-        font-size:30px;
-        line-height:1.12;
-      }
-
-      .hero p{
-        font-size:14px;
-        line-height:1.7;
-        margin-top:14px;
-      }
-
-      .lang-tabs,
-      .tabs{
-        justify-content:flex-start;
-        flex-wrap:nowrap;
-        overflow-x:auto;
-        gap:8px;
-        padding:14px 0;
-        scrollbar-width:none;
-      }
-
-      .lang-tabs::-webkit-scrollbar,
-      .tabs::-webkit-scrollbar{
-        display:none;
-      }
-
-      .lang-tab,
-      .tab{
-        flex:0 0 auto;
-        padding:10px 14px;
-        font-size:13px;
-      }
-
-      .main{
-        padding:28px 0 48px;
-      }
-
-      .top-grid{
-        grid-template-columns:1fr;
-        gap:22px;
-      }
-
-      .image-box{
-        padding:16px;
-        border-radius:20px;
-      }
-
-      .image-frame{
-        min-height:240px;
-        border-radius:16px;
-      }
-
-      .image-frame img{
-        max-height:220px;
-        max-width:100%;
-        height:auto;
-      }
-
-      .text-area{
-        padding-left:12px;
-        padding-right:12px;
-      }
-
-      .title{
-        font-size:28px;
-        line-height:1.12;
-        margin:0;
-      }
-
-      .subtitle{
-        font-size:15px;
-        line-height:1.7;
-        margin-top:10px;
-      }
-
-      .desc-title{
-        margin-top:22px;
-        font-size:10px;
-        letter-spacing:.18em;
-      }
-
-      .desc{
-        font-size:15px;
-        line-height:1.75;
-      }
-
-      .section{
-        margin-top:34px;
-      }
-
-      .section h2{
-        font-size:24px;
-        line-height:1.15;
-        padding-left:12px;
-        padding-right:12px;
-      }
-
-      .ingredient-list{
-        margin-top:16px;
-        gap:10px;
-        padding:4px 12px 0;
-      }
-
-      .ingredient{
-        font-size:13px;
-        padding:8px 12px;
-      }
-
-      .nutrition-grid{
-        grid-template-columns:1fr;
-        gap:12px;
-        padding:0 12px;
-      }
-
-      .nutrition-box{
-        padding:14px;
-      }
-
-      .nutrition-box .value{
-        font-size:17px;
-      }
-
-      .allergen-box{
-        margin-left:12px;
-        margin-right:12px;
-        padding:16px;
-        border-radius:18px;
-      }
-
-      .chip{
-        font-size:13px;
-        padding:7px 10px;
-      }
-
-      .cook-box{
-        margin-left:12px;
-        margin-right:12px;
-        padding:16px;
-        border-radius:18px;
-      }
-
-      .steps li{
-        gap:10px;
-        line-height:1.65;
-        font-size:14px;
-      }
-
-      .num{
-        width:24px;
-        height:24px;
-        font-size:12px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="container logo-wrap">
-      <img src="https://paldofood.co.kr/skin/images/sub/ci-logotype.png" alt="Paldo Logo">
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="container hero-inner">
-      <div class="eyebrow" id="eyebrow"></div>
-      <h1 id="hero-title"></h1>
-      <p id="hero-desc"></p>
-    </div>
-  </section>
-
-  <section class="lang-wrap">
-    <div class="container">
-      <div class="lang-tabs" id="lang-tabs"></div>
-    </div>
-  </section>
-
-  <section class="tabs-wrap">
-    <div class="container">
-      <div class="tabs" id="tabs"></div>
-    </div>
-  </section>
-
-  <main class="container main">
-    <section class="top-grid">
-      <div class="image-box">
-        <div class="image-frame" id="image-frame"></div>
-      </div>
-
-      <div class="text-area">
-        <h1 class="title" id="name"></h1>
-        <p class="subtitle" id="subtitle"></p>
-        <div class="desc-title" id="desc-title"></div>
-        <div class="desc" id="description"></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 id="ingredients-title"></h2>
-      <div class="ingredient-list" id="ingredients"></div>
-    </section>
-
-    <section class="section">
-      <h2 id="nutrition-title"></h2>
-      <div class="nutrition-grid" id="nutrition"></div>
-    </section>
-
-    <section class="section">
-      <h2 id="allergy-title"></h2>
-      <div class="allergen-box">
-        <div class="allergen-title" id="contains-title"></div>
-        <div class="chips" id="allergens"></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 id="cook-section-title"></h2>
-      <div class="cook-box">
-        <div class="cook-subtitle" id="cook-title"></div>
-        <ol class="steps" id="steps"></ol>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    const uiText = {
-      en: {
-        langName: "English",
-        eyebrow: "Paldo Global Product Guide",
-        heroTitle: "Experience<span>True Taste of Korea with Paldo</span>",
-        heroDesc: "A clean product page for international customers with product description, ingredients, nutrition facts, allergy information, and cooking instructions.",
-        descTitle: "Product Description",
-        ingredientsTitle: "Ingredients",
-        nutritionTitle: "Nutrition Facts",
-        allergyTitle: "Allergy Info",
-        containsTitle: "Contains",
-        cookingTitle: "Cooking Description",
-        productImage: "PRODUCT IMAGE"
-      },
-      zh: {
-        langName: "中文",
-        eyebrow: "八道全球产品指南",
-        heroTitle: "体验<span>八道带来的正宗韩国风味</span>",
-        heroDesc: "为国际顾客提供产品介绍、配料、营养成分、过敏信息和烹饪方法的清晰产品页面。",
-        descTitle: "产品介绍",
-        ingredientsTitle: "配料",
-        nutritionTitle: "营养成分",
-        allergyTitle: "过敏信息",
-        containsTitle: "含有",
-        cookingTitle: "烹饪说明",
-        productImage: "产品图片"
-      },
-      ja: {
-        langName: "日本語",
-        eyebrow: "パルド グローバル製品ガイド",
-        heroTitle: "Paldoで楽しむ<span>本場韓国の味</span>",
-        heroDesc: "海外のお客様向けに、商品説明、原材料、栄養情報、アレルギー情報、調理方法をわかりやすくまとめたページです。",
-        descTitle: "商品説明",
-        ingredientsTitle: "原材料",
-        nutritionTitle: "栄養情報",
-        allergyTitle: "アレルギー情報",
-        containsTitle: "含まれるもの",
-        cookingTitle: "調理方法",
-        productImage: "商品画像"
-      },
-      vi: {
-        langName: "Tiếng Việt",
-        eyebrow: "Hướng Dẫn Sản Phẩm Paldo Toàn Cầu",
-        heroTitle: "Trải nghiệm<span>Hương vị Hàn Quốc đích thực cùng Paldo</span>",
-        heroDesc: "Trang sản phẩm rõ ràng dành cho khách hàng quốc tế với mô tả sản phẩm, thành phần, thông tin dinh dưỡng, dị ứng và cách nấu.",
-        descTitle: "Mô tả sản phẩm",
-        ingredientsTitle: "Thành phần",
-        nutritionTitle: "Thông tin dinh dưỡng",
-        allergyTitle: "Thông tin dị ứng",
-        containsTitle: "Có chứa",
-        cookingTitle: "Hướng dẫn nấu",
-        productImage: "HÌNH ẢNH SẢN PHẨM"
-      }
-    };
-
-    const nutritionLabels = {
-      en: {
-        serving: "Serving Size",
-        calories: "Calories",
-        carb: "Carbohydrate",
-        protein: "Protein",
-        fat: "Fat",
-        sodium: "Sodium"
-      },
-      zh: {
-        serving: "每份含量",
-        calories: "热量",
-        carb: "碳水化合物",
-        protein: "蛋白质",
-        fat: "脂肪",
-        sodium: "钠"
-      },
-      ja: {
-        serving: "内容量",
-        calories: "カロリー",
-        carb: "炭水化物",
-        protein: "たんぱく質",
-        fat: "脂質",
-        sodium: "ナトリウム"
-      },
-      vi: {
-        serving: "Khẩu phần",
-        calories: "Năng lượng",
-        carb: "Carbohydrate",
-        protein: "Chất đạm",
-        fat: "Chất béo",
-        sodium: "Natri"
-      }
-    };
-
-    const products = [
-      {
-        id:"bibimblue",
-        image:"images/비빔면더블루.png",
-        content:{
-          en:{
-            name:"Bibimmen The Blue",
-            subtitle:"Cold spicy bibim noodles with deeper flavor",
-            description:[
-              "A richer and deeper version of Paldo Bibimmen",
-              "Sweet and spicy sauce with enhanced umami flavor"
-            ],
-            ingredients:["Wheat Flour","Palm Oil","Potato Starch","Salt","Sugar","Garlic","Green Onion"],
-            nutrition:[
-              {labelKey:"serving", value:"135 g"},
-              {labelKey:"calories", value:"535 kcal"},
-              {labelKey:"carb", value:"86 g"},
-              {labelKey:"protein", value:"10 g"},
-              {labelKey:"fat", value:"17 g"},
-              {labelKey:"sodium", value:"1,340 mg"}
-            ],
-            allergens:["Wheat","Soy","Sesame","Mustard"],
-            cookTitle:"Eating Cool (Original Korean Recipe)",
-            steps:[
-              "Put the noodles into 600 mL of boiling water and boil for 3 minutes.",
-              "Drain the water and rinse noodles in cold water.",
-              "Place noodles in a bowl and add the sauce.",
-              "Mix well and enjoy."
-            ]
-          },
-          zh:{
-            name:"拌面 The Blue",
-            subtitle:"风味更浓郁的冷拌辣面",
-            description:[
-              "比Paldo拌面更加浓郁醇厚的升级版本",
-              "甜辣酱汁结合更丰富的鲜味"
-            ],
-            ingredients:["小麦粉","棕榈油","马铃薯淀粉","盐","糖","大蒜","青葱"],
-            nutrition:[
-              {labelKey:"serving", value:"135 g"},
-              {labelKey:"calories", value:"535 kcal"},
-              {labelKey:"carb", value:"86 g"},
-              {labelKey:"protein", value:"10 g"},
-              {labelKey:"fat", value:"17 g"},
-              {labelKey:"sodium", value:"1,340 mg"}
-            ],
-            allergens:["小麦","大豆","芝麻","芥末"],
-            cookTitle:"凉拌食用方法（韩式原味）",
-            steps:[
-              "将面饼放入600毫升沸水中煮3分钟。",
-              "倒掉水后用冷水冲洗面条。",
-              "将面条放入碗中，加入酱料。",
-              "搅拌均匀后享用。"
-            ]
-          },
-          ja:{
-            name:"ビビンメン The Blue",
-            subtitle:"より深い味わいの冷たい辛口ビビン麺",
-            description:[
-              "Paldoビビンメンをさらに濃厚に仕上げた一品",
-              "甘辛ソースに旨味を加えた豊かな味わい"
-            ],
-            ingredients:["小麦粉","パーム油","じゃがいもでん粉","食塩","砂糖","にんにく","青ねぎ"],
-            nutrition:[
-              {labelKey:"serving", value:"135 g"},
-              {labelKey:"calories", value:"535 kcal"},
-              {labelKey:"carb", value:"86 g"},
-              {labelKey:"protein", value:"10 g"},
-              {labelKey:"fat", value:"17 g"},
-              {labelKey:"sodium", value:"1,340 mg"}
-            ],
-            allergens:["小麦","大豆","ごま","からし"],
-            cookTitle:"冷やして食べる調理方法（韓国式）",
-            steps:[
-              "麺を600mLの熱湯に入れ、3分ゆでます。",
-              "湯を切り、冷水で麺をしめます。",
-              "器に麺を入れ、ソースを加えます。",
-              "よく混ぜてお召し上がりください。"
-            ]
-          },
-          vi:{
-            name:"Bibimmen The Blue",
-            subtitle:"Mì trộn cay lạnh với hương vị đậm đà hơn",
-            description:[
-              "Phiên bản đậm vị và sâu vị hơn của Paldo Bibimmen",
-              "Nước sốt ngọt cay với vị umami nổi bật hơn"
-            ],
-            ingredients:["Bột mì","Dầu cọ","Tinh bột khoai tây","Muối","Đường","Tỏi","Hành lá"],
-            nutrition:[
-              {labelKey:"serving", value:"135 g"},
-              {labelKey:"calories", value:"535 kcal"},
-              {labelKey:"carb", value:"86 g"},
-              {labelKey:"protein", value:"10 g"},
-              {labelKey:"fat", value:"17 g"},
-              {labelKey:"sodium", value:"1,340 mg"}
-            ],
-            allergens:["Lúa mì","Đậu nành","Mè","Mù tạt"],
-            cookTitle:"Cách dùng lạnh (kiểu Hàn Quốc)",
-            steps:[
-              "Cho mì vào 600 mL nước sôi và luộc trong 3 phút.",
-              "Đổ nước đi và xả mì bằng nước lạnh.",
-              "Cho mì vào tô và thêm sốt.",
-              "Trộn đều rồi thưởng thức."
-            ]
-          }
-        }
-      },
-      {
-        id:"bibim",
-        image:"images/비빔면.png",
-        content:{
-          en:{
-            name:"Bibimmen",
-            subtitle:"With Soupless, Pack type",
-            description:[
-              "Noodle with spicy and sweet seasonings",
-              "World's first spread & stir instant noodles"
-            ],
-            ingredients:["Wheat Flour","Palm Oil","Potato Starch","Soy Sauce","Sugar","Garlic","Onion","Sesame Oil","Mustard"],
-            nutrition:[
-              {labelKey:"serving", value:"130 g"},
-              {labelKey:"calories", value:"530 kcal"},
-              {labelKey:"carb", value:"80 g"},
-              {labelKey:"protein", value:"9 g"},
-              {labelKey:"fat", value:"19 g"},
-              {labelKey:"sodium", value:"1,230 mg"}
-            ],
-            allergens:["Sesame","Soy","Wheat","Mustard"],
-            cookTitle:"Eating Cool (Original Korean Recipe)",
-            steps:[
-              "Put the noodles into 600 mL of boiling water and boil for 3 minutes.",
-              "Drain out water and rinse with cold water.",
-              "Place noodles in a bowl and add the sauce.",
-              "Stir well and enjoy."
-            ]
-          },
-          zh:{
-            name:"拌面",
-            subtitle:"无汤袋装拌面",
-            description:[
-              "带有甜辣调味的拌面",
-              "世界首创即食拌面类型产品"
-            ],
-            ingredients:["小麦粉","棕榈油","马铃薯淀粉","酱油","糖","大蒜","洋葱","芝麻油","芥末"],
-            nutrition:[
-              {labelKey:"serving", value:"130 g"},
-              {labelKey:"calories", value:"530 kcal"},
-              {labelKey:"carb", value:"80 g"},
-              {labelKey:"protein", value:"9 g"},
-              {labelKey:"fat", value:"19 g"},
-              {labelKey:"sodium", value:"1,230 mg"}
-            ],
-            allergens:["芝麻","大豆","小麦","芥末"],
-            cookTitle:"凉拌食用方法（韩式原味）",
-            steps:[
-              "将面饼放入600毫升沸水中煮3分钟。",
-              "倒掉水后用冷水冲洗面条。",
-              "将面条放入碗中，加入酱料。",
-              "搅拌均匀后享用。"
-            ]
-          },
-          ja:{
-            name:"ビビンメン",
-            subtitle:"汁なしタイプの袋麺",
-            description:[
-              "甘辛い味付けが特徴の麺",
-              "世界初のまぜて食べるインスタント麺"
-            ],
-            ingredients:["小麦粉","パーム油","じゃがいもでん粉","しょうゆ","砂糖","にんにく","玉ねぎ","ごま油","からし"],
-            nutrition:[
-              {labelKey:"serving", value:"130 g"},
-              {labelKey:"calories", value:"530 kcal"},
-              {labelKey:"carb", value:"80 g"},
-              {labelKey:"protein", value:"9 g"},
-              {labelKey:"fat", value:"19 g"},
-              {labelKey:"sodium", value:"1,230 mg"}
-            ],
-            allergens:["ごま","大豆","小麦","からし"],
-            cookTitle:"冷やして食べる調理方法（韓国式）",
-            steps:[
-              "麺を600mLの熱湯に入れ、3分ゆでます。",
-              "湯を切り、冷水で洗います。",
-              "器に麺を入れ、ソースを加えます。",
-              "よく混ぜてお召し上がりください。"
-            ]
-          },
-          vi:{
-            name:"Bibimmen",
-            subtitle:"Mì gói trộn không nước",
-            description:[
-              "Mì với gia vị ngọt và cay",
-              "Dòng mì ăn liền trộn đầu tiên trên thế giới"
-            ],
-            ingredients:["Bột mì","Dầu cọ","Tinh bột khoai tây","Nước tương","Đường","Tỏi","Hành tây","Dầu mè","Mù tạt"],
-            nutrition:[
-              {labelKey:"serving", value:"130 g"},
-              {labelKey:"calories", value:"530 kcal"},
-              {labelKey:"carb", value:"80 g"},
-              {labelKey:"protein", value:"9 g"},
-              {labelKey:"fat", value:"19 g"},
-              {labelKey:"sodium", value:"1,230 mg"}
-            ],
-            allergens:["Mè","Đậu nành","Lúa mì","Mù tạt"],
-            cookTitle:"Cách dùng lạnh (kiểu Hàn Quốc)",
-            steps:[
-              "Cho mì vào 600 mL nước sôi và luộc trong 3 phút.",
-              "Đổ nước và xả bằng nước lạnh.",
-              "Cho mì vào tô và thêm sốt.",
-              "Trộn đều rồi thưởng thức."
-            ]
-          }
-        }
-      },
-      {
-        id:"wang",
-        image:"images/왕뚜껑.png",
-        content:{
-          en:{
-            name:"Jumbo Noodle Seafood Flavor",
-            subtitle:"Large Korean cup noodle soup",
-            description:[
-              "Big bowl format with rich broth",
-              "Comfortable and familiar Korean cup noodle style"
-            ],
-            ingredients:["Wheat Flour","Palm Oil","Starch","Salt","Soy Sauce Powder","Garlic","Red Pepper Seasoning","Vegetable Flavoring"],
-            nutrition:[
-              {labelKey:"serving", value:"120 g"},
-              {labelKey:"calories", value:"560 kcal"},
-              {labelKey:"carb", value:"79 g"},
-              {labelKey:"protein", value:"9 g"},
-              {labelKey:"fat", value:"23 g"},
-              {labelKey:"sodium", value:"2,090 mg"}
-            ],
-            allergens:["Wheat","Soy","Gluten","Crustaceans (Crab, Shrimp, Lobster)","Mollusks (Squid, Mussel, Oyster)"],
-            cookTitle:"Cooking Description",
-            steps:[
-              "Open the lid and add the soup base into the cup.",
-              "Pour hot water up to the inner line.",
-              "Close the lid and let it sit for 3 minutes.",
-              "Remove the lid, stir well, and enjoy."
-            ]
-          },
-          zh:{
-            name:"王大碗 海鲜味",
-            subtitle:"大份量韩式杯面汤面",
-            description:[
-              "大碗装，汤底浓郁",
-              "经典又熟悉的韩式杯面风格"
-            ],
-            ingredients:["小麦粉","棕榈油","淀粉","盐","酱油粉","大蒜","辣椒调味料","蔬菜风味料"],
-            nutrition:[
-              {labelKey:"serving", value:"120 g"},
-              {labelKey:"calories", value:"560 kcal"},
-              {labelKey:"carb", value:"79 g"},
-              {labelKey:"protein", value:"9 g"},
-              {labelKey:"fat", value:"23 g"},
-              {labelKey:"sodium", value:"2,090 mg"}
-            ],
-            allergens:["小麦","大豆","麸质","甲壳类（蟹、虾、龙虾）","软体类（鱿鱼、贻贝、牡蛎）"],
-            cookTitle:"烹饪说明",
-            steps:[
-              "打开盖子，将汤料包放入杯中。",
-              "倒入热水至内侧水位线。",
-              "盖上盖子，静置3分钟。",
-              "打开后搅拌均匀即可享用。"
-            ]
-          },
-          ja:{
-            name:"ワン トゥッコン 海鮮味",
-            subtitle:"大盛り韓国カップ麺スープ",
-            description:[
-              "大容量カップにコクのあるスープ",
-              "親しみやすい韓国カップ麺スタイル"
-            ],
-            ingredients:["小麦粉","パーム油","でん粉","食塩","しょうゆパウダー","にんにく","唐辛子シーズニング","野菜風味調味料"],
-            nutrition:[
-              {labelKey:"serving", value:"120 g"},
-              {labelKey:"calories", value:"560 kcal"},
-              {labelKey:"carb", value:"79 g"},
-              {labelKey:"protein", value:"9 g"},
-              {labelKey:"fat", value:"23 g"},
-              {labelKey:"sodium", value:"2,090 mg"}
-            ],
-            allergens:["小麦","大豆","グルテン","甲殻類（カニ、えび、ロブスター）","軟体類（イカ、ムール貝、牡蠣）"],
-            cookTitle:"調理方法",
-            steps:[
-              "ふたを開け、スープの素をカップに入れます。",
-              "内側の線まで熱湯を注ぎます。",
-              "ふたを閉じて3分待ちます。",
-              "よく混ぜてお召し上がりください。"
-            ]
-          },
-          vi:{
-            name:"Jumbo Noodle Vị Hải Sản",
-            subtitle:"Mì ly Hàn Quốc cỡ lớn có nước súp",
-            description:[
-              "Tô mì lớn với nước dùng đậm đà",
-              "Phong cách mì ly Hàn Quốc quen thuộc và dễ thưởng thức"
-            ],
-            ingredients:["Bột mì","Dầu cọ","Tinh bột","Muối","Bột nước tương","Tỏi","Gia vị ớt đỏ","Hương rau củ"],
-            nutrition:[
-              {labelKey:"serving", value:"120 g"},
-              {labelKey:"calories", value:"560 kcal"},
-              {labelKey:"carb", value:"79 g"},
-              {labelKey:"protein", value:"9 g"},
-              {labelKey:"fat", value:"23 g"},
-              {labelKey:"sodium", value:"2,090 mg"}
-            ],
-            allergens:["Lúa mì","Đậu nành","Gluten","Động vật giáp xác (cua, tôm, tôm hùm)","Động vật thân mềm (mực, vẹm, hàu)"],
-            cookTitle:"Hướng dẫn nấu",
-            steps:[
-              "Mở nắp và cho gói súp vào ly.",
-              "Rót nước nóng đến vạch bên trong.",
-              "Đậy nắp và chờ 3 phút.",
-              "Mở nắp, khuấy đều và thưởng thức."
-            ]
-          }
-        }
-      },
-      {
-        id:"tuemsae",
-        image:"images/틈새라면 빨계떡(10,000SHU).png",
-        content:{
-          en:{
-            name:"Teumsae Ramen",
-            subtitle:"Korean spicy noodle",
-            description:[
-              "Teumsae delivers a thrilling combination of bold broth and chewy noodles.",
-              "Experience the real taste of Korean spicy noodles with Teumsae."
-            ],
-            ingredients:["Wheat Flour","Palm Oil","Potato Starch","Salt","Wheat Gluten","Chili Powder","Garlic","Onion Powder"],
-            nutrition:[
-              {labelKey:"serving", value:"120 g"},
-              {labelKey:"calories", value:"505 kcal"},
-              {labelKey:"carb", value:"81 g"},
-              {labelKey:"protein", value:"11 g"},
-              {labelKey:"fat", value:"15 g"},
-              {labelKey:"sodium", value:"1,760 mg"}
-            ],
-            allergens:["Wheat","Soy","Eggs","Milk","Pork","Beef"],
-            cookTitle:"Cooking Description",
-            steps:[
-              "Put noodles, powder soup, and flakes into 550 mL of boiling water.",
-              "Boil for 3 minutes and 30 seconds.",
-              "Stir evenly before serving.",
-              "Enjoy while hot."
-            ]
-          },
-          zh:{
-            name:"틈새拉面",
-            subtitle:"韩式辣味汤面",
-            description:[
-              "劲道面条搭配浓烈辣汤，带来刺激畅快的口感。",
-              "用틈새拉面体验真正的韩式辣味。"
-            ],
-            ingredients:["小麦粉","棕榈油","马铃薯淀粉","盐","小麦蛋白","辣椒粉","大蒜粉","洋葱粉"],
-            nutrition:[
-              {labelKey:"serving", value:"120 g"},
-              {labelKey:"calories", value:"505 kcal"},
-              {labelKey:"carb", value:"81 g"},
-              {labelKey:"protein", value:"11 g"},
-              {labelKey:"fat", value:"15 g"},
-              {labelKey:"sodium", value:"1,760 mg"}
-            ],
-            allergens:["小麦","大豆","鸡蛋","牛奶","猪肉","牛肉"],
-            cookTitle:"烹饪说明",
-            steps:[
-              "将面饼、粉包和蔬菜包放入550毫升沸水中。",
-              "煮3分30秒。",
-              "食用前搅拌均匀。",
-              "趁热享用。"
-            ]
-          },
-          ja:{
-            name:"トゥムセラーメン",
-            subtitle:"韓国の激辛ラーメン",
-            description:[
-              "力強いスープとコシのある麺が刺激的な組み合わせを生み出します。",
-              "トゥムセで本場韓国の辛さを体験してください。"
-            ],
-            ingredients:["小麦粉","パーム油","じゃがいもでん粉","食塩","小麦グルテン","唐辛子粉","にんにく粉","玉ねぎ粉"],
-            nutrition:[
-              {labelKey:"serving", value:"120 g"},
-              {labelKey:"calories", value:"505 kcal"},
-              {labelKey:"carb", value:"81 g"},
-              {labelKey:"protein", value:"11 g"},
-              {labelKey:"fat", value:"15 g"},
-              {labelKey:"sodium", value:"1,760 mg"}
-            ],
-            allergens:["小麦","大豆","卵","乳","豚肉","牛肉"],
-            cookTitle:"調理方法",
-            steps:[
-              "麺、粉末スープ、かやくを550mLの熱湯に入れます。",
-              "3分30秒煮込みます。",
-              "食べる前によく混ぜます。",
-              "熱いうちにお召し上がりください。"
-            ]
-          },
-          vi:{
-            name:"Teumsae Ramen",
-            subtitle:"Mì cay Hàn Quốc",
-            description:[
-              "Teumsae mang đến sự kết hợp bùng nổ giữa nước súp đậm vị và sợi mì dai ngon.",
-              "Trải nghiệm hương vị mì cay Hàn Quốc đích thực cùng Teumsae."
-            ],
-            ingredients:["Bột mì","Dầu cọ","Tinh bột khoai tây","Muối","Gluten lúa mì","Bột ớt","Bột tỏi","Bột hành"],
-            nutrition:[
-              {labelKey:"serving", value:"120 g"},
-              {labelKey:"calories", value:"505 kcal"},
-              {labelKey:"carb", value:"81 g"},
-              {labelKey:"protein", value:"11 g"},
-              {labelKey:"fat", value:"15 g"},
-              {labelKey:"sodium", value:"1,760 mg"}
-            ],
-            allergens:["Lúa mì","Đậu nành","Trứng","Sữa","Thịt heo","Thịt bò"],
-            cookTitle:"Hướng dẫn nấu",
-            steps:[
-              "Cho mì, gói súp bột và gói rau vào 550 mL nước sôi.",
-              "Nấu trong 3 phút 30 giây.",
-              "Khuấy đều trước khi dùng.",
-              "Thưởng thức khi còn nóng."
-            ]
-          }
-        }
-      },
-      {
-        id:"teumsae-entry",
-        image:"images/틈새라면입문용.png",
-        content:{
-          en:{
-            name:"Teumsae Ramen Entry Level",
-            subtitle:"Easy-entry spicy Korean soup noodles",
-            description:[
-              "Approachable spicy profile for first-time Teumsae customers",
-              "Clear English ingredients and allergen view"
-            ],
-            ingredients:["Wheat Flour","Palm Oil","Potato Starch","Salt","Wheat Gluten","Chili Powder","Garlic","Onion Powder"],
-            nutrition:[
-              {labelKey:"serving", value:"120 g"},
-              {labelKey:"calories", value:"505 kcal"},
-              {labelKey:"carb", value:"81 g"},
-              {labelKey:"protein", value:"11 g"},
-              {labelKey:"fat", value:"15 g"},
-              {labelKey:"sodium", value:"1,790 mg"}
-            ],
-            allergens:["Wheat","Soy","Eggs","Milk","Pork","Beef"],
-            cookTitle:"Cooking Description",
-            steps:[
-              "Put noodles, powder soup, and flakes into 550 mL of boiling water.",
-              "Boil for 3 minutes and 30 seconds.",
-              "Stir evenly before serving.",
-              "Enjoy while hot."
-            ]
-          },
-          zh:{
-            name:"틈새拉面 入门版",
-            subtitle:"适合初次尝试者的韩式微辣汤面",
-            description:[
-              "为初次接触틈새拉面的顾客设计的易入口辣度",
-              "提供清晰的英文配料与过敏信息"
-            ],
-            ingredients:["小麦粉","棕榈油","马铃薯淀粉","盐","小麦蛋白","辣椒粉","大蒜粉","洋葱粉"],
-            nutrition:[
-              {labelKey:"serving", value:"120 g"},
-              {labelKey:"calories", value:"505 kcal"},
-              {labelKey:"carb", value:"81 g"},
-              {labelKey:"protein", value:"11 g"},
-              {labelKey:"fat", value:"15 g"},
-              {labelKey:"sodium", value:"1,790 mg"}
-            ],
-            allergens:["小麦","大豆","鸡蛋","牛奶","猪肉","牛肉"],
-            cookTitle:"烹饪说明",
-            steps:[
-              "将面饼、粉包和蔬菜包放入550毫升沸水中。",
-              "煮3分30秒。",
-              "食用前搅拌均匀。",
-              "趁热享用。"
-            ]
-          },
-          ja:{
-            name:"トゥムセラーメン 入門用",
-            subtitle:"初めてでも食べやすい韓国旨辛スープ麺",
-            description:[
-              "初めてのトゥムセユーザー向けの食べやすい辛さ",
-              "英語の原材料・アレルギー情報も見やすく表示"
-            ],
-            ingredients:["小麦粉","パーム油","じゃがいもでん粉","食塩","小麦グルテン","唐辛子粉","にんにく粉","玉ねぎ粉"],
-            nutrition:[
-              {labelKey:"serving", value:"120 g"},
-              {labelKey:"calories", value:"505 kcal"},
-              {labelKey:"carb", value:"81 g"},
-              {labelKey:"protein", value:"11 g"},
-              {labelKey:"fat", value:"15 g"},
-              {labelKey:"sodium", value:"1,790 mg"}
-            ],
-            allergens:["小麦","大豆","卵","乳","豚肉","牛肉"],
-            cookTitle:"調理方法",
-            steps:[
-              "麺、粉末スープ、かやくを550mLの熱湯に入れます。",
-              "3分30秒煮込みます。",
-              "食べる前によく混ぜます。",
-              "熱いうちにお召し上がりください。"
-            ]
-          },
-          vi:{
-            name:"Teumsae Ramen Entry Level",
-            subtitle:"Mì nước cay Hàn Quốc dễ ăn cho người mới thử",
-            description:[
-              "Mức cay dễ tiếp cận dành cho khách hàng lần đầu thử Teumsae",
-              "Hiển thị rõ ràng thành phần và thông tin dị ứng bằng tiếng Anh"
-            ],
-            ingredients:["Bột mì","Dầu cọ","Tinh bột khoai tây","Muối","Gluten lúa mì","Bột ớt","Bột tỏi","Bột hành"],
-            nutrition:[
-              {labelKey:"serving", value:"120 g"},
-              {labelKey:"calories", value:"505 kcal"},
-              {labelKey:"carb", value:"81 g"},
-              {labelKey:"protein", value:"11 g"},
-              {labelKey:"fat", value:"15 g"},
-              {labelKey:"sodium", value:"1,790 mg"}
-            ],
-            allergens:["Lúa mì","Đậu nành","Trứng","Sữa","Thịt heo","Thịt bò"],
-            cookTitle:"Hướng dẫn nấu",
-            steps:[
-              "Cho mì, gói súp bột và gói rau vào 550 mL nước sôi.",
-              "Nấu trong 3 phút 30 giây.",
-              "Khuấy đều trước khi dùng.",
-              "Thưởng thức khi còn nóng."
-            ]
-          }
+  };
+
+  const products = [
+    {
+      id:"bibimblue",
+      image:"images/비빔면더블루.png",
+      content:{
+        en:{
+          name:"Bibimmen The Blue",
+          subtitle:"Cold spicy mixed noodles with a deeper, richer flavor",
+          description:[
+            "A richer and bolder version of Paldo Bibimmen.",
+            "Sweet and spicy sauce with enhanced umami for a deeper taste."
+          ],
+          ingredients:["Wheat Flour","Palm Oil","Potato Starch","Salt","Sugar","Garlic","Green Onion"],
+          nutrition:[
+            {labelKey:"serving", value:"135 g"},
+            {labelKey:"calories", value:"535 kcal"},
+            {labelKey:"carb", value:"86 g"},
+            {labelKey:"protein", value:"10 g"},
+            {labelKey:"fat", value:"17 g"},
+            {labelKey:"sodium", value:"1,340 mg"}
+          ],
+          allergens:["Wheat","Soy","Sesame","Mustard"],
+          cookTitle:"Serving Suggestion (Best Served Cold)",
+          steps:[
+            "Add the noodles to 600 mL of boiling water and cook for 3 minutes.",
+            "Drain the noodles and rinse them thoroughly in cold water.",
+            "Place the noodles in a bowl and add the sauce.",
+            "Mix well and enjoy."
+          ]
+        },
+        zh:{
+          name:"八道拌面 The Blue",
+          subtitle:"风味更浓郁的冷拌辣面",
+          description:[
+            "比八道经典拌面更加浓郁醇厚的升级版。",
+            "甜辣酱汁融合更丰富的鲜味，口感更有层次。"
+          ],
+          ingredients:["小麦粉","棕榈油","马铃薯淀粉","盐","糖","大蒜","青葱"],
+          nutrition:[
+            {labelKey:"serving", value:"135 g"},
+            {labelKey:"calories", value:"535 kcal"},
+            {labelKey:"carb", value:"86 g"},
+            {labelKey:"protein", value:"10 g"},
+            {labelKey:"fat", value:"17 g"},
+            {labelKey:"sodium", value:"1,340 mg"}
+          ],
+          allergens:["小麦","大豆","芝麻","芥末"],
+          cookTitle:"食用方法（冷拌风味）",
+          steps:[
+            "将面饼放入600毫升沸水中煮3分钟。",
+            "将面条沥干后，用冷水充分冲洗。",
+            "把面条放入碗中，加入酱料。",
+            "搅拌均匀后即可享用。"
+          ]
+        },
+        ja:{
+          name:"ビビンメン The Blue",
+          subtitle:"より深いコクが楽しめる冷たい辛口まぜ麺",
+          description:[
+            "Paldoビビンメンをさらに濃厚で奥深い味わいに仕上げた一品です。",
+            "甘辛いソースに旨味を加え、より豊かな風味を楽しめます。"
+          ],
+          ingredients:["小麦粉","パーム油","じゃがいもでん粉","食塩","砂糖","にんにく","青ねぎ"],
+          nutrition:[
+            {labelKey:"serving", value:"135 g"},
+            {labelKey:"calories", value:"535 kcal"},
+            {labelKey:"carb", value:"86 g"},
+            {labelKey:"protein", value:"10 g"},
+            {labelKey:"fat", value:"17 g"},
+            {labelKey:"sodium", value:"1,340 mg"}
+          ],
+          allergens:["小麦","大豆","ごま","からし"],
+          cookTitle:"おすすめの食べ方（冷やしてお召し上がりください）",
+          steps:[
+            "麺を600mLの熱湯に入れ、3分ゆでます。",
+            "湯を切り、冷水でしっかり冷やします。",
+            "器に麺を入れ、ソースを加えます。",
+            "よく混ぜてお召し上がりください。"
+          ]
+        },
+        vi:{
+          name:"Bibimmen The Blue",
+          subtitle:"Mì trộn cay ăn lạnh với hương vị đậm đà hơn",
+          description:[
+            "Phiên bản đậm đà và tròn vị hơn của Paldo Bibimmen.",
+            "Nước sốt ngọt cay với vị umami nổi bật, cho hương vị sâu hơn."
+          ],
+          ingredients:["Bột mì","Dầu cọ","Tinh bột khoai tây","Muối","Đường","Tỏi","Hành lá"],
+          nutrition:[
+            {labelKey:"serving", value:"135 g"},
+            {labelKey:"calories", value:"535 kcal"},
+            {labelKey:"carb", value:"86 g"},
+            {labelKey:"protein", value:"10 g"},
+            {labelKey:"fat", value:"17 g"},
+            {labelKey:"sodium", value:"1,340 mg"}
+          ],
+          allergens:["Lúa mì","Đậu nành","Mè","Mù tạt"],
+          cookTitle:"Cách dùng gợi ý (Ngon hơn khi ăn lạnh)",
+          steps:[
+            "Cho mì vào 600 mL nước sôi và nấu trong 3 phút.",
+            "Chắt nước và xả mì thật kỹ bằng nước lạnh.",
+            "Cho mì vào tô và thêm gói sốt.",
+            "Trộn đều rồi thưởng thức."
+          ]
         }
       }
-    ];
-
-    let activeId = "bibim";
-    let activeLang = "en";
-
-    const langTabs = document.getElementById("lang-tabs");
-    const tabs = document.getElementById("tabs");
-    const imageFrame = document.getElementById("image-frame");
-    const nameEl = document.getElementById("name");
-    const subtitleEl = document.getElementById("subtitle");
-    const descEl = document.getElementById("description");
-    const ingredientsEl = document.getElementById("ingredients");
-    const nutritionEl = document.getElementById("nutrition");
-    const allergensEl = document.getElementById("allergens");
-    const cookTitleEl = document.getElementById("cook-title");
-    const stepsEl = document.getElementById("steps");
-    const eyebrowEl = document.getElementById("eyebrow");
-    const heroTitleEl = document.getElementById("hero-title");
-    const heroDescEl = document.getElementById("hero-desc");
-    const descTitleEl = document.getElementById("desc-title");
-    const ingredientsTitleEl = document.getElementById("ingredients-title");
-    const nutritionTitleEl = document.getElementById("nutrition-title");
-    const allergyTitleEl = document.getElementById("allergy-title");
-    const containsTitleEl = document.getElementById("contains-title");
-    const cookSectionTitleEl = document.getElementById("cook-section-title");
-
-    function renderImage(src, alt){
-      imageFrame.innerHTML = "";
-
-      const img = document.createElement("img");
-      img.src = src;
-      img.alt = alt;
-
-      img.onerror = () => {
-        imageFrame.innerHTML = `
-          <div style="text-align:center;color:#6b7280;padding:12px;">
-            <div style="display:inline-block;padding:8px 14px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-size:12px;font-weight:800;letter-spacing:.18em;">
-              ${uiText[activeLang].productImage}
-            </div>
-            <div style="margin-top:18px;font-size:28px;font-weight:900;color:#111827;line-height:1.3;">
-              ${alt}
-            </div>
-          </div>
-        `;
-      };
-
-      imageFrame.appendChild(img);
+    },
+    {
+      id:"bibim",
+      image:"images/비빔면.png",
+      content:{
+        en:{
+          name:"Bibimmen",
+          subtitle:"Soupless Korean mixed noodles in a convenient pack",
+          description:[
+            "Instant noodles with a signature sweet and spicy sauce.",
+            "The world's first instant mixed noodle product of its kind."
+          ],
+          ingredients:["Wheat Flour","Palm Oil","Potato Starch","Soy Sauce","Sugar","Garlic","Onion","Sesame Oil","Mustard"],
+          nutrition:[
+            {labelKey:"serving", value:"130 g"},
+            {labelKey:"calories", value:"530 kcal"},
+            {labelKey:"carb", value:"80 g"},
+            {labelKey:"protein", value:"9 g"},
+            {labelKey:"fat", value:"19 g"},
+            {labelKey:"sodium", value:"1,230 mg"}
+          ],
+          allergens:["Sesame","Soy","Wheat","Mustard"],
+          cookTitle:"Serving Suggestion (Best Served Cold)",
+          steps:[
+            "Add the noodles to 600 mL of boiling water and cook for 3 minutes.",
+            "Drain the noodles and rinse them with cold water.",
+            "Place the noodles in a bowl and add the sauce.",
+            "Mix well and enjoy."
+          ]
+        },
+        zh:{
+          name:"八道拌面",
+          subtitle:"无汤型袋装韩式拌面",
+          description:[
+            "以甜辣调味酱为特色的韩式拌面。",
+            "世界首创的即食拌面产品之一。"
+          ],
+          ingredients:["小麦粉","棕榈油","马铃薯淀粉","酱油","糖","大蒜","洋葱","芝麻油","芥末"],
+          nutrition:[
+            {labelKey:"serving", value:"130 g"},
+            {labelKey:"calories", value:"530 kcal"},
+            {labelKey:"carb", value:"80 g"},
+            {labelKey:"protein", value:"9 g"},
+            {labelKey:"fat", value:"19 g"},
+            {labelKey:"sodium", value:"1,230 mg"}
+          ],
+          allergens:["芝麻","大豆","小麦","芥末"],
+          cookTitle:"食用方法（冷拌风味）",
+          steps:[
+            "将面饼放入600毫升沸水中煮3分钟。",
+            "将面条沥干后，用冷水冲洗。",
+            "把面条放入碗中，加入酱料。",
+            "搅拌均匀后即可享用。"
+          ]
+        },
+        ja:{
+          name:"ビビンメン",
+          subtitle:"汁なしタイプの韓国風まぜ麺",
+          description:[
+            "甘辛い特製ソースが特徴のインスタントまぜ麺です。",
+            "世界初の“まぜて食べる”タイプの即席麺として知られています。"
+          ],
+          ingredients:["小麦粉","パーム油","じゃがいもでん粉","しょうゆ","砂糖","にんにく","玉ねぎ","ごま油","からし"],
+          nutrition:[
+            {labelKey:"serving", value:"130 g"},
+            {labelKey:"calories", value:"530 kcal"},
+            {labelKey:"carb", value:"80 g"},
+            {labelKey:"protein", value:"9 g"},
+            {labelKey:"fat", value:"19 g"},
+            {labelKey:"sodium", value:"1,230 mg"}
+          ],
+          allergens:["ごま","大豆","小麦","からし"],
+          cookTitle:"おすすめの食べ方（冷やしてお召し上がりください）",
+          steps:[
+            "麺を600mLの熱湯に入れ、3分ゆでます。",
+            "湯を切り、冷水で洗います。",
+            "器に麺を入れ、ソースを加えます。",
+            "よく混ぜてお召し上がりください。"
+          ]
+        },
+        vi:{
+          name:"Bibimmen",
+          subtitle:"Mì trộn Hàn Quốc không nước dạng gói",
+          description:[
+            "Mì ăn liền với nước sốt ngọt cay đặc trưng.",
+            "Một trong những dòng mì trộn ăn liền đầu tiên trên thế giới."
+          ],
+          ingredients:["Bột mì","Dầu cọ","Tinh bột khoai tây","Nước tương","Đường","Tỏi","Hành tây","Dầu mè","Mù tạt"],
+          nutrition:[
+            {labelKey:"serving", value:"130 g"},
+            {labelKey:"calories", value:"530 kcal"},
+            {labelKey:"carb", value:"80 g"},
+            {labelKey:"protein", value:"9 g"},
+            {labelKey:"fat", value:"19 g"},
+            {labelKey:"sodium", value:"1,230 mg"}
+          ],
+          allergens:["Mè","Đậu nành","Lúa mì","Mù tạt"],
+          cookTitle:"Cách dùng gợi ý (Ngon hơn khi ăn lạnh)",
+          steps:[
+            "Cho mì vào 600 mL nước sôi và nấu trong 3 phút.",
+            "Chắt nước và xả mì bằng nước lạnh.",
+            "Cho mì vào tô và thêm gói sốt.",
+            "Trộn đều rồi thưởng thức."
+          ]
+        }
+      }
+    },
+    {
+      id:"wang",
+      image:"images/왕뚜껑.png",
+      content:{
+        en:{
+          name:"Jumbo Cup Noodle Seafood Flavor",
+          subtitle:"A large Korean-style cup noodle soup",
+          description:[
+            "A generous serving of noodles with a rich and savory broth.",
+            "A classic Korean cup noodle that is satisfying and familiar."
+          ],
+          ingredients:["Wheat Flour","Palm Oil","Starch","Salt","Soy Sauce Powder","Garlic","Red Pepper Seasoning","Vegetable Flavoring"],
+          nutrition:[
+            {labelKey:"serving", value:"120 g"},
+            {labelKey:"calories", value:"560 kcal"},
+            {labelKey:"carb", value:"79 g"},
+            {labelKey:"protein", value:"9 g"},
+            {labelKey:"fat", value:"23 g"},
+            {labelKey:"sodium", value:"2,090 mg"}
+          ],
+          allergens:["Wheat","Soy","Gluten","Crustaceans (Crab, Shrimp, Lobster)","Mollusks (Squid, Mussel, Oyster)"],
+          cookTitle:"Cooking Instructions",
+          steps:[
+            "Open the lid and add the soup base into the cup.",
+            "Pour hot water up to the inner fill line.",
+            "Close the lid and let it stand for 3 minutes.",
+            "Stir well and enjoy."
+          ]
+        },
+        zh:{
+          name:"王大碗 海鲜味",
+          subtitle:"大份量韩式杯面汤面",
+          description:[
+            "大容量杯面，搭配浓郁鲜美的汤底。",
+            "经典又熟悉的韩式杯面风味。"
+          ],
+          ingredients:["小麦粉","棕榈油","淀粉","盐","酱油粉","大蒜","辣椒调味料","蔬菜风味料"],
+          nutrition:[
+            {labelKey:"serving", value:"120 g"},
+            {labelKey:"calories", value:"560 kcal"},
+            {labelKey:"carb", value:"79 g"},
+            {labelKey:"protein", value:"9 g"},
+            {labelKey:"fat", value:"23 g"},
+            {labelKey:"sodium", value:"2,090 mg"}
+          ],
+          allergens:["小麦","大豆","麸质","甲壳类（蟹、虾、龙虾）","软体类（鱿鱼、贻贝、牡蛎）"],
+          cookTitle:"烹饪说明",
+          steps:[
+            "打开杯盖，将汤料加入杯中。",
+            "倒入热水至内侧注水线。",
+            "盖上杯盖，静置3分钟。",
+            "搅拌均匀后即可享用。"
+          ]
+        },
+        ja:{
+          name:"ワン トゥッコン 海鮮味",
+          subtitle:"大盛りサイズの韓国風カップスープ麺",
+          description:[
+            "ボリュームたっぷりの麺と、コクのある海鮮スープが楽しめます。",
+            "親しみやすく満足感のある韓国カップ麺です。"
+          ],
+          ingredients:["小麦粉","パーム油","でん粉","食塩","しょうゆパウダー","にんにく","唐辛子シーズニング","野菜風味調味料"],
+          nutrition:[
+            {labelKey:"serving", value:"120 g"},
+            {labelKey:"calories", value:"560 kcal"},
+            {labelKey:"carb", value:"79 g"},
+            {labelKey:"protein", value:"9 g"},
+            {labelKey:"fat", value:"23 g"},
+            {labelKey:"sodium", value:"2,090 mg"}
+          ],
+          allergens:["小麦","大豆","グルテン","甲殻類（カニ、えび、ロブスター）","軟体類（イカ、ムール貝、牡蠣）"],
+          cookTitle:"調理方法",
+          steps:[
+            "ふたを開け、スープの素をカップに入れます。",
+            "内側の線まで熱湯を注ぎます。",
+            "ふたを閉じて3分待ちます。",
+            "よく混ぜてお召し上がりください。"
+          ]
+        },
+        vi:{
+          name:"Jumbo Cup Noodle Vị Hải Sản",
+          subtitle:"Mì ly kiểu Hàn Quốc cỡ lớn với nước súp",
+          description:[
+            "Khẩu phần lớn với nước dùng đậm đà và thơm ngon.",
+            "Phong cách mì ly Hàn Quốc quen thuộc, dễ ăn và đầy thỏa mãn."
+          ],
+          ingredients:["Bột mì","Dầu cọ","Tinh bột","Muối","Bột nước tương","Tỏi","Gia vị ớt đỏ","Hương rau củ"],
+          nutrition:[
+            {labelKey:"serving", value:"120 g"},
+            {labelKey:"calories", value:"560 kcal"},
+            {labelKey:"carb", value:"79 g"},
+            {labelKey:"protein", value:"9 g"},
+            {labelKey:"fat", value:"23 g"},
+            {labelKey:"sodium", value:"2,090 mg"}
+          ],
+          allergens:["Lúa mì","Đậu nành","Gluten","Động vật giáp xác (cua, tôm, tôm hùm)","Động vật thân mềm (mực, vẹm, hàu)"],
+          cookTitle:"Hướng dẫn chế biến",
+          steps:[
+            "Mở nắp và cho gói súp vào ly.",
+            "Rót nước nóng đến vạch bên trong.",
+            "Đậy nắp và chờ trong 3 phút.",
+            "Khuấy đều rồi thưởng thức."
+          ]
+        }
+      }
+    },
+    {
+      id:"tuemsae",
+      image:"images/틈새라면 빨계떡(10,000SHU).png",
+      content:{
+        en:{
+          name:"Teumsae Ramen",
+          subtitle:"Korean extra spicy noodle soup",
+          description:[
+            "Teumsae offers a thrilling combination of bold, spicy broth and chewy noodles.",
+            "Experience the authentic taste of Korean spicy noodles with Teumsae."
+          ],
+          ingredients:["Wheat Flour","Palm Oil","Potato Starch","Salt","Wheat Gluten","Chili Powder","Garlic","Onion Powder"],
+          nutrition:[
+            {labelKey:"serving", value:"120 g"},
+            {labelKey:"calories", value:"505 kcal"},
+            {labelKey:"carb", value:"81 g"},
+            {labelKey:"protein", value:"11 g"},
+            {labelKey:"fat", value:"15 g"},
+            {labelKey:"sodium", value:"1,760 mg"}
+          ],
+          allergens:["Wheat","Soy","Eggs","Milk","Pork","Beef"],
+          cookTitle:"Cooking Instructions",
+          steps:[
+            "Add the noodles, soup powder, and flakes to 550 mL of boiling water.",
+            "Cook for 3 minutes and 30 seconds.",
+            "Stir well before serving.",
+            "Enjoy while hot."
+          ]
+        },
+        zh:{
+          name:"틈새拉面",
+          subtitle:"韩式超辣汤面",
+          description:[
+            "劲道面条搭配浓烈辛辣的汤底，带来刺激畅快的口感。",
+            "用틈새拉面体验地道的韩式辣味。"
+          ],
+          ingredients:["小麦粉","棕榈油","马铃薯淀粉","盐","小麦蛋白","辣椒粉","大蒜粉","洋葱粉"],
+          nutrition:[
+            {labelKey:"serving", value:"120 g"},
+            {labelKey:"calories", value:"505 kcal"},
+            {labelKey:"carb", value:"81 g"},
+            {labelKey:"protein", value:"11 g"},
+            {labelKey:"fat", value:"15 g"},
+            {labelKey:"sodium", value:"1,760 mg"}
+          ],
+          allergens:["小麦","大豆","鸡蛋","牛奶","猪肉","牛肉"],
+          cookTitle:"烹饪说明",
+          steps:[
+            "将面饼、粉末汤料和蔬菜包放入550毫升沸水中。",
+            "煮3分30秒。",
+            "食用前请充分搅拌。",
+            "趁热享用。"
+          ]
+        },
+        ja:{
+          name:"トゥムセラーメン",
+          subtitle:"韓国の激辛スープ麺",
+          description:[
+            "力強い辛さのスープとコシのある麺が刺激的な美味しさを生み出します。",
+            "トゥムセで本場韓国の辛さをぜひお楽しみください。"
+          ],
+          ingredients:["小麦粉","パーム油","じゃがいもでん粉","食塩","小麦グルテン","唐辛子粉","にんにく粉","玉ねぎ粉"],
+          nutrition:[
+            {labelKey:"serving", value:"120 g"},
+            {labelKey:"calories", value:"505 kcal"},
+            {labelKey:"carb", value:"81 g"},
+            {labelKey:"protein", value:"11 g"},
+            {labelKey:"fat", value:"15 g"},
+            {labelKey:"sodium", value:"1,760 mg"}
+          ],
+          allergens:["小麦","大豆","卵","乳","豚肉","牛肉"],
+          cookTitle:"調理方法",
+          steps:[
+            "麺、粉末スープ、かやくを550mLの熱湯に入れます。",
+            "3分30秒煮込みます。",
+            "食べる前によく混ぜます。",
+            "熱いうちにお召し上がりください。"
+          ]
+        },
+        vi:{
+          name:"Teumsae Ramen",
+          subtitle:"Mì nước siêu cay kiểu Hàn Quốc",
+          description:[
+            "Teumsae mang đến sự kết hợp bùng nổ giữa nước súp cay đậm vị và sợi mì dai ngon.",
+            "Trải nghiệm hương vị mì cay Hàn Quốc đích thực cùng Teumsae."
+          ],
+          ingredients:["Bột mì","Dầu cọ","Tinh bột khoai tây","Muối","Gluten lúa mì","Bột ớt","Bột tỏi","Bột hành"],
+          nutrition:[
+            {labelKey:"serving", value:"120 g"},
+            {labelKey:"calories", value:"505 kcal"},
+            {labelKey:"carb", value:"81 g"},
+            {labelKey:"protein", value:"11 g"},
+            {labelKey:"fat", value:"15 g"},
+            {labelKey:"sodium", value:"1,760 mg"}
+          ],
+          allergens:["Lúa mì","Đậu nành","Trứng","Sữa","Thịt heo","Thịt bò"],
+          cookTitle:"Hướng dẫn chế biến",
+          steps:[
+            "Cho mì, gói súp bột và gói rau vào 550 mL nước sôi.",
+            "Nấu trong 3 phút 30 giây.",
+            "Khuấy đều trước khi dùng.",
+            "Thưởng thức khi còn nóng."
+          ]
+        }
+      }
+    },
+    {
+      id:"teumsae-entry",
+      image:"images/틈새라면입문용.png",
+      content:{
+        en:{
+          name:"Teumsae Ramen Entry Level",
+          subtitle:"Mildly spicy Korean soup noodles for beginners",
+          description:[
+            "An approachable level of spiciness for first-time Teumsae customers.",
+            "Clearly presented ingredients and allergen information for easy reference."
+          ],
+          ingredients:["Wheat Flour","Palm Oil","Potato Starch","Salt","Wheat Gluten","Chili Powder","Garlic","Onion Powder"],
+          nutrition:[
+            {labelKey:"serving", value:"120 g"},
+            {labelKey:"calories", value:"505 kcal"},
+            {labelKey:"carb", value:"81 g"},
+            {labelKey:"protein", value:"11 g"},
+            {labelKey:"fat", value:"15 g"},
+            {labelKey:"sodium", value:"1,790 mg"}
+          ],
+          allergens:["Wheat","Soy","Eggs","Milk","Pork","Beef"],
+          cookTitle:"Cooking Instructions",
+          steps:[
+            "Add the noodles, soup powder, and flakes to 550 mL of boiling water.",
+            "Cook for 3 minutes and 30 seconds.",
+            "Stir well before serving.",
+            "Enjoy while hot."
+          ]
+        },
+        zh:{
+          name:"틈새拉面 入门版",
+          subtitle:"适合初次尝试者的韩式微辣汤面",
+          description:[
+            "为第一次品尝틈새拉面的消费者设计，辣度更容易接受。",
+            "配料与过敏原信息清晰明了，方便查看。"
+          ],
+          ingredients:["小麦粉","棕榈油","马铃薯淀粉","盐","小麦蛋白","辣椒粉","大蒜粉","洋葱粉"],
+          nutrition:[
+            {labelKey:"serving", value:"120 g"},
+            {labelKey:"calories", value:"505 kcal"},
+            {labelKey:"carb", value:"81 g"},
+            {labelKey:"protein", value:"11 g"},
+            {labelKey:"fat", value:"15 g"},
+            {labelKey:"sodium", value:"1,790 mg"}
+          ],
+          allergens:["小麦","大豆","鸡蛋","牛奶","猪肉","牛肉"],
+          cookTitle:"烹饪说明",
+          steps:[
+            "将面饼、粉末汤料和蔬菜包放入550毫升沸水中。",
+            "煮3分30秒。",
+            "食用前请充分搅拌。",
+            "趁热享用。"
+          ]
+        },
+        ja:{
+          name:"トゥムセラーメン 入門用",
+          subtitle:"初めてでも食べやすい韓国旨辛スープ麺",
+          description:[
+            "初めてトゥムセを試す方でも楽しみやすい、やさしい辛さに仕上げています。",
+            "原材料やアレルギー情報も見やすく、わかりやすく表示しています。"
+          ],
+          ingredients:["小麦粉","パーム油","じゃがいもでん粉","食塩","小麦グルテン","唐辛子粉","にんにく粉","玉ねぎ粉"],
+          nutrition:[
+            {labelKey:"serving", value:"120 g"},
+            {labelKey:"calories", value:"505 kcal"},
+            {labelKey:"carb", value:"81 g"},
+            {labelKey:"protein", value:"11 g"},
+            {labelKey:"fat", value:"15 g"},
+            {labelKey:"sodium", value:"1,790 mg"}
+          ],
+          allergens:["小麦","大豆","卵","乳","豚肉","牛肉"],
+          cookTitle:"調理方法",
+          steps:[
+            "麺、粉末スープ、かやくを550mLの熱湯に入れます。",
+            "3分30秒煮込みます。",
+            "食べる前によく混ぜます。",
+            "熱いうちにお召し上がりください。"
+          ]
+        },
+        vi:{
+          name:"Teumsae Ramen Entry Level",
+          subtitle:"Mì nước cay kiểu Hàn Quốc dễ ăn cho người mới",
+          description:[
+            "Mức cay dễ tiếp cận, phù hợp với khách hàng lần đầu thử Teumsae.",
+            "Thông tin về thành phần và dị ứng được trình bày rõ ràng, dễ theo dõi."
+          ],
+          ingredients:["Bột mì","Dầu cọ","Tinh bột khoai tây","Muối","Gluten lúa mì","Bột ớt","Bột tỏi","Bột hành"],
+          nutrition:[
+            {labelKey:"serving", value:"120 g"},
+            {labelKey:"calories", value:"505 kcal"},
+            {labelKey:"carb", value:"81 g"},
+            {labelKey:"protein", value:"11 g"},
+            {labelKey:"fat", value:"15 g"},
+            {labelKey:"sodium", value:"1,790 mg"}
+          ],
+          allergens:["Lúa mì","Đậu nành","Trứng","Sữa","Thịt heo","Thịt bò"],
+          cookTitle:"Hướng dẫn chế biến",
+          steps:[
+            "Cho mì, gói súp bột và gói rau vào 550 mL nước sôi.",
+            "Nấu trong 3 phút 30 giây.",
+            "Khuấy đều trước khi dùng.",
+            "Thưởng thức khi còn nóng."
+          ]
+        }
+      }
     }
-
-    function renderLangTabs(){
-      langTabs.innerHTML = "";
-      Object.keys(uiText).forEach((lang) => {
-        const btn = document.createElement("button");
-        btn.className = "lang-tab" + (lang === activeLang ? " active" : "");
-        btn.textContent = uiText[lang].langName;
-        btn.onclick = () => {
-          activeLang = lang;
-          render();
-        };
-        langTabs.appendChild(btn);
-      });
-    }
-
-    function renderTabs(){
-      tabs.innerHTML = "";
-      products.forEach((p) => {
-        const localized = p.content[activeLang] || p.content.en;
-        const btn = document.createElement("button");
-        btn.className = "tab" + (p.id === activeId ? " active" : "");
-        btn.textContent = localized.name;
-        btn.onclick = () => {
-          activeId = p.id;
-          render();
-        };
-        tabs.appendChild(btn);
-      });
-    }
-
-    function renderUI(){
-      const t = uiText[activeLang];
-      eyebrowEl.textContent = t.eyebrow;
-      heroTitleEl.innerHTML = t.heroTitle;
-      heroDescEl.textContent = t.heroDesc;
-      descTitleEl.textContent = t.descTitle;
-      ingredientsTitleEl.textContent = t.ingredientsTitle;
-      nutritionTitleEl.textContent = t.nutritionTitle;
-      allergyTitleEl.textContent = t.allergyTitle;
-      containsTitleEl.textContent = t.containsTitle;
-      cookSectionTitleEl.textContent = t.cookingTitle;
-      document.documentElement.lang = activeLang;
-    }
-
-    function render(){
-      const product = products.find(item => item.id === activeId) || products[0];
-      const p = product.content[activeLang] || product.content.en;
-      const nl = nutritionLabels[activeLang] || nutritionLabels.en;
-
-      renderLangTabs();
-      renderTabs();
-      renderUI();
-      renderImage(product.image, p.name);
-
-      nameEl.textContent = p.name;
-      subtitleEl.textContent = p.subtitle;
-      descEl.innerHTML = p.description.map(d => `<p>${d}</p>`).join("");
-
-      ingredientsEl.innerHTML = p.ingredients
-        .map(i => `<span class="ingredient">${i}</span>`)
-        .join("");
-
-      nutritionEl.innerHTML = p.nutrition
-        .map(n => `
-          <div class="nutrition-box">
-            <div class="label">${nl[n.labelKey]}</div>
-            <div class="value">${n.value}</div>
-          </div>
-        `)
-        .join("");
-
-      allergensEl.innerHTML = p.allergens
-        .map(a => `<span class="chip">${a}</span>`)
-        .join("");
-
-      cookTitleEl.textContent = p.cookTitle;
-
-      stepsEl.innerHTML = p.steps
-        .map((s, i) => `
-          <li>
-            <span class="num">${i + 1}</span>
-            <span>${s}</span>
-          </li>
-        `)
-        .join("");
-    }
-
-    render();
-  </script>
-</body>
-</html>
+  ];
+</script>
